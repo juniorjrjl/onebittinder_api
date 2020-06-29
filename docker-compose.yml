@@ -1,0 +1,31 @@
+version: "3"
+ 
+services:
+  postigis:
+    image: "mdillon/postgis:latest"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postigis:/var/lib/postgresql/data
+    environment: 
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+ 
+  app:
+    depends_on:
+      - "postigis"
+    build: .
+    command: bash start.sh
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/onebittinder
+      - gems:/gems
+    environment: 
+      - DB_HOST=postigis
+      - DB_USER=postgres
+      - DB_PASS=postgres
+ 
+volumes:
+  postigis:
+  gems:
