@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       resources :matches, only: [:index, :destroy]
       resources :chat, as: :chats, only: [:index]
       resources :selection_lists, only: :index
+      get 'messages/:match_id', to: 'messages#messages_history'
+      post 'messages', to: 'messages#create'
     end
   end
 end

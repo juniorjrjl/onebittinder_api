@@ -1,6 +1,6 @@
 json.matches @matches do |match|
   json.id match.id
-
+  
   matchee = match.matchee
   matchee = match.matcher if matchee == current_user
   if matchee.default_photo && matchee.default_photo.file.attached?
